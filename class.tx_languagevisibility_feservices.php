@@ -22,6 +22,7 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once (t3lib_extMgm::extPath("languagevisibility") . 'class.tx_languagevisibility_abstractservices.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/class.tx_languagevisibility_languagerepository.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/class.tx_languagevisibility_elementFactory.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/class.tx_languagevisibility_visibilityService.php');
@@ -33,7 +34,7 @@ require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/dao/class.t
  *
  * Methods can be used uninstanciated
  **/
-class tx_languagevisibility_feservices {
+class tx_languagevisibility_feservices extends tx_languagevisibility_abstractservices {
 
 	public static function getFallbackOrderForElement($uid, $table, $lUid) {
 		$dao = t3lib_div::makeInstance('tx_languagevisibility_daocommon');

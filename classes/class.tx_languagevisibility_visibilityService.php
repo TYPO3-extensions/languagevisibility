@@ -31,16 +31,19 @@ require_once t3lib_extMgm::extPath('languagevisibility') . 'classes/class.tx_lan
 require_once t3lib_extMgm::extPath('languagevisibility') . 'classes/class.tx_languagevisibility_cacheManager.php';
 
 class tx_languagevisibility_visibilityService {
+
 	/**
 	 * @var boolean holds the state if inheritance is enabled or not
 	 */
 	protected static $useInheritance;
 
 	/**
-	 * Constructor of the service, used to initialize the service with the usage
-	 * of the inheritance feature.
-	 *
-	 * @return void
+	 * @var array
+	 */
+	private static $supportedTables;
+
+	/**
+	 * Constructor of the service, used to initialize the service with the usage of the inheritance feature.
 	 */
 	public function __construct() {
 		if (!isset(self::$useInheritance)) {
@@ -99,25 +102,35 @@ class tx_languagevisibility_visibilityService {
 	}
 
 	/**
+	 * Gets the tables configured with language visibility support.
+	 *
 	 * @static
 	 * @return array with all supported tables
 	 */
 	public static function getSupportedTables() {
+		if (!isset(self::$supportedTables)) {
+			self::$supportedTables = array('pages', 'tt_content', 'tt_news', 'pages_language_overlay');
 
-		$tables = array('pages', 'tt_content', 'tt_news', 'pages_language_overlay');
-
-		if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['getElementForTable'])
+			if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['getElementForTable'])
 				&& is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['getElementForTable'])
-		) {
-			$tables = array_merge($tables, array_keys($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['getElementForTable']));
-		}
-		if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['recordElementSupportedTables'])
+			) {
+				self::$supportedTables = array_merge(
+					self::$supportedTables,
+					array_keys($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['getElementForTable'])
+				);
+			}
+
+			if (isset($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['recordElementSupportedTables'])
 				&& is_array($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['recordElementSupportedTables'])
-		) {
-			$tables = array_merge($tables, array_keys($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['recordElementSupportedTables']));
+			) {
+				self::$supportedTables = array_merge(
+					self::$supportedTables,
+					array_keys($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['languagevisibility']['recordElementSupportedTables'])
+				);
+			}
 		}
 
-		return $tables;
+		return self::$supportedTables;
 	}
 
 	/**

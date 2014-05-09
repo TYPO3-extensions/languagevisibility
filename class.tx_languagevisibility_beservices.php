@@ -22,13 +22,14 @@
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+require_once (t3lib_extMgm::extPath("languagevisibility") . 'class.tx_languagevisibility_abstractservices.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/class.tx_languagevisibility_languagerepository.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/class.tx_languagevisibility_elementFactory.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/class.tx_languagevisibility_visibilityService.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'classes/dao/class.tx_languagevisibility_daocommon.php');
 require_once (t3lib_extMgm::extPath("languagevisibility") . 'patch/lib/class.tx_languagevisibility_beUser.php');
 
-class tx_languagevisibility_beservices {
+class tx_languagevisibility_beservices extends tx_languagevisibility_abstractservices {
 
 	protected static $cache_canBeUserCopyDelete = array();
 
@@ -204,21 +205,6 @@ class tx_languagevisibility_beservices {
 		}
 
 		return $result;
-	}
-
-	/**
-	 * Method to check if records of a given table support the languagevisibility feature
-	 *
-	 * @param string $table
-	 * @return boolean
-	 */
-	public static function isSupportedTable($table) {
-		$supported = tx_languagevisibility_visibilityService::getSupportedTables();
-		if (in_array($table, $supported)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**

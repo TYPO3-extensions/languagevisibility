@@ -55,6 +55,10 @@ class tx_languagevisibility_elementFactory {
 	 **/
 	function getElementForTable($table, $uid, $overlay_ids = true) {
 
+		if (!tx_languagevisibility_feservices::isSupportedTable($table)) {
+			throw new UnexpectedValueException($table . ' not supported ', 1195039394);
+		}
+
 		if (!is_numeric($uid) || (intval($uid) === 0)) {
 				// no uid => maybe NEW element in BE
 			$row = array();
@@ -66,8 +70,7 @@ class tx_languagevisibility_elementFactory {
 			}
 		}
 
-		//@todo isSupported table
-		/* @var $element tx_languagevisibility_element */
+		/** @var tx_languagevisibility_element $element */
 		switch ($table) {
 			case 'pages' :
 				if (version_compare(TYPO3_version, '4.3.0', '<')) {
