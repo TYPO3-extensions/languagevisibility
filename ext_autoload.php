@@ -33,6 +33,8 @@ return array(
 	'tx_languagevisibility_hooks_t3lib_tcemain' => $extensionPath . 'hooks/class.tx_languagevisibility_hooks_t3lib_tcemain.php',
 	'tx_languagevisibility_hooks_t3lib_userauthgroup' => $extensionPath . 'hooks/class.tx_languagevisibility_hooks_t3lib_userauthgroup.php',
 	'tx_languagevisibility_hooks_templavoila_pi1' => $extensionPath . 'hooks/class.tx_languagevisibility_hooks_templavoila_pi1.php',
+	'tx_languagevisibility_hooks_tslib_fe' => $extensionPath . 'hooks/class.tx_languagevisibility_hooks_tslib_fe.php',
+	'tx_languagevisibility_hooks_tslib_menu' => $extensionPath . 'hooks/class.tx_languagevisibility_hooks_tslib_menu.php',
 	'tx_languagevisibility_modfunc1' => $extensionPath . 'modfunc1/class.tx_languagevisibility_modfunc1.php',
 	'tx_languagevisibility_beuser' => $extensionPath . 'patch/lib/class.tx_languagevisibility_beUser.php',
 	'tx_languagevisibility_commandmap' => $extensionPath . 'patch/lib/class.tx_languagevisibility_commandMap.php',
